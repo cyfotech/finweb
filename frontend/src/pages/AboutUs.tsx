@@ -29,6 +29,7 @@ import { EditableElement } from '../components/EditableElement';
 import { SocialLinksBar } from '../components/SocialLinksBar';
 import { FinancialDonutChart } from '../components/FinancialDonutChart';
 import { useAnimationSettings } from '../context/AnimationSettingsContext';
+import { ContinuousPlanningLoop, PlanningSignalsDiagnostic } from '../components/referenceAnimations';
 import './AboutUs.css';
 
 const PILLARS = [
@@ -743,6 +744,11 @@ export function AboutUs() {
           </div>
         </section>
         </EditableSectionContainer>
+
+        {/* Reference Interactive Methodology: Continuous 6-Stage Planning Loop */}
+        <section className="about-reference-methodology my-12">
+          <ContinuousPlanningLoop />
+        </section>
 
         <EditableSectionContainer sectionKey="cta" sectionTitle="Strategic Partner CTA" isEnabled={isSectionEnabled('cta')} sectionData={ctaSection}>
           <section className="about-cta-section" style={{ '--about-office-bg': ctaSection?.backgroundImage ? `url("${ctaSection.backgroundImage}")` : `url("${aboutOfficeBackground}")` } as CSSProperties}>

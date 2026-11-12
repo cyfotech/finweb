@@ -651,3 +651,240 @@
     visibility: visible;
   }
 }
+
+/* ============================================================
+   PREMIUM ENHANCEMENT ADDITIONS — Phase 1 CSS Upgrade
+   Added below existing rules; nothing above is removed.
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. Richer artwork background — adds subtle dot-grid layer
+      on top of the existing radial / linear gradients
+   ---------------------------------------------------------- */
+.service-workflow__artwork {
+  background-image:
+    radial-gradient(circle, color-mix(in srgb, var(--workflow-line) 70%, transparent) 1px, transparent 1px),
+    radial-gradient(ellipse at 82% 15%, rgba(73, 227, 214, 0.12), transparent 38%),
+    linear-gradient(135deg, rgba(22, 107, 95, 0.035), transparent 58%);
+  background-size: 20px 20px, auto, auto;
+  background-position: 0 0, 0 0, 0 0;
+}
+
+/* Per-service artwork backgrounds already set their own background-image,
+   so the grid is not applied to those — they already have their own pattern.
+   For services that have NO custom background-image the grid shows through. */
+
+/* ----------------------------------------------------------
+   2. Stage card — richer "active" glow & border animation
+      Augments the existing workflow-stage-cycle keyframe by
+      adding a glow box-shadow during the active window.
+   ---------------------------------------------------------- */
+@keyframes workflow-stage-cycle {
+  0% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 62%, transparent);
+    box-shadow: none;
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  3% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 75%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 12%, white);
+    box-shadow:
+      0 5px 18px color-mix(in srgb, var(--workflow-accent) 14%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 22%, transparent),
+      inset 0 1px 0 rgba(255,255,255,0.55);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  12% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 10%, white);
+    box-shadow:
+      0 4px 14px color-mix(in srgb, var(--workflow-accent) 10%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 15%, transparent),
+      inset 0 1px 0 rgba(255,255,255,0.4);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  21% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 10%, white);
+    box-shadow:
+      0 4px 14px color-mix(in srgb, var(--workflow-accent) 10%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 15%, transparent),
+      inset 0 1px 0 rgba(255,255,255,0.4);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  28%, 100% {
+    border-color: var(--workflow-line);
+    background: rgba(255, 255, 255, 0.64);
+    box-shadow: none;
+    opacity: 0;
+    transform: translateY(-7px) scale(0.99);
+  }
+}
+
+@keyframes workflow-stage-cycle-dark {
+  0% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 62%, transparent);
+    box-shadow: none;
+    opacity: 0;
+    transform: translateY(8px) scale(0.985);
+  }
+  3% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 75%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 14%, #071c25);
+    box-shadow:
+      0 5px 18px color-mix(in srgb, var(--workflow-accent) 18%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 28%, transparent),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  12% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 11%, #071c25);
+    box-shadow:
+      0 4px 14px color-mix(in srgb, var(--workflow-accent) 14%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 20%, transparent);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  21% {
+    border-color: color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--workflow-accent) 11%, #071c25);
+    box-shadow:
+      0 4px 14px color-mix(in srgb, var(--workflow-accent) 14%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--workflow-accent) 20%, transparent);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  28%, 100% {
+    border-color: var(--workflow-line);
+    background: rgba(7, 28, 37, 0.64);
+    box-shadow: none;
+    opacity: 0;
+    transform: translateY(-7px) scale(0.99);
+  }
+}
+
+/* ----------------------------------------------------------
+   3. Topline entrance animation — fades in from above when
+      data-running becomes true (uses the running attr gate)
+   ---------------------------------------------------------- */
+@keyframes workflow-topline-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-workflow[data-running="true"] .service-workflow__topline {
+  animation: workflow-topline-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ----------------------------------------------------------
+   4. Artwork container entrance — subtle scale + fade in
+   ---------------------------------------------------------- */
+@keyframes workflow-artwork-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.985) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.service-workflow[data-running="true"] .service-workflow__artwork {
+  animation: workflow-artwork-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ----------------------------------------------------------
+   5. Result row — polished left-border accent + subtle glow
+   ---------------------------------------------------------- */
+.service-workflow__result {
+  border-left: 3px solid color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+  border-radius: 2px 9px 9px 2px;
+  transition: box-shadow 0.3s ease;
+}
+
+.service-workflow[data-running="true"] .service-workflow__result {
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--workflow-accent) 12%, transparent);
+}
+
+/* ----------------------------------------------------------
+   6. Live dot — improved pulse: fade + scale + colour shift
+   ---------------------------------------------------------- */
+@keyframes workflow-live-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--workflow-accent) 55%, transparent);
+  }
+  40% {
+    opacity: 0.6;
+    transform: scale(0.72);
+    box-shadow: 0 0 0 0 transparent;
+  }
+  55% {
+    opacity: 0.6;
+    transform: scale(0.72);
+    box-shadow: 0 0 0 0 transparent;
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--workflow-accent) 22%, transparent);
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+/* ----------------------------------------------------------
+   7. Stage progress bar — staggered delays per bar segment
+      so each i.is-complete fills after the previous one.
+   ---------------------------------------------------------- */
+.service-workflow__stage-progress i b {
+  animation-delay: 0s;
+}
+.service-workflow__stage-progress i:nth-child(2) b { animation-delay: 0.3s; }
+.service-workflow__stage-progress i:nth-child(3) b { animation-delay: 0.6s; }
+.service-workflow__stage-progress i:nth-child(4) b { animation-delay: 0.9s; }
+
+/* ----------------------------------------------------------
+   8. Source card — premium glass-morphism lift on running
+   ---------------------------------------------------------- */
+.service-workflow[data-running="true"] .service-workflow__source {
+  box-shadow:
+    0 6px 20px rgba(17, 54, 60, 0.08),
+    0 1px 4px rgba(17, 54, 60, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.dark .service-workflow[data-running="true"] .service-workflow__source {
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.3),
+    0 1px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* ----------------------------------------------------------
+   9. Stage number — accent pill on active stage
+   ---------------------------------------------------------- */
+.service-workflow__stage-number {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--workflow-accent) 12%, transparent);
+  letter-spacing: 0.08em;
+}

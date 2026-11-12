@@ -23,6 +23,7 @@ import { usePageContent } from '../hooks/usePageContent';
 import { EditableElement } from '../components/EditableElement';
 import { EditableSectionContainer } from '../components/EditableSectionContainer';
 import { SocialLinksBar } from '../components/SocialLinksBar';
+import { InteractiveRoutingSlip, InteractiveDoubtSolver } from '../components/referenceAnimations';
 import './ContactUs.css';
 
 type ContactFormData = {
@@ -250,6 +251,11 @@ export function ContactUs() {
           </div>
         </header>
         </EditableSectionContainer>
+
+        {/* Reference Interactive Module: Dynamic Digital Routing Slip */}
+        <div className="mb-14">
+          <InteractiveRoutingSlip />
+        </div>
 
         <div className="contact-premium__layout">
           <aside className="contact-premium__sidebar" aria-label="Contact information">
@@ -514,6 +520,11 @@ export function ContactUs() {
             )}
           </section>
           </EditableSectionContainer>
+        </div>
+
+        {/* Reference Interactive Module: Got a Doubt? The Answer is on the Button */}
+        <div className="mt-14">
+          <InteractiveDoubtSolver />
         </div>
       </div>
 

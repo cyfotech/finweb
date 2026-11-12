@@ -8,13 +8,58 @@ import {
   ArrowLeft,
   FileSpreadsheet,
   Building2,
+  Users,
   Users2,
-  Layers
+  Briefcase,
+  ShieldAlert,
+  TrendingUp,
+  Receipt,
+  CreditCard,
+  PieChart,
+  Calculator,
+  FileText,
+  BookOpen,
+  Layers,
+  Coins,
+  ClipboardCheck,
+  FileCheck,
+  UserCheck
 } from 'lucide-react';
 import { SERVICES_CATALOG, CLIENT_CATEGORIES, ClientCategory, ServiceItem } from '../data/services';
 import { servicesApi } from '../api/services';
 import { usePageContent } from '../hooks/usePageContent';
 import { EditableSectionContainer } from './EditableSectionContainer';
+import { OrbitalServiceWheel, FormsExplorer, InteractiveDoubtSolver } from './referenceAnimations';
+
+const SERVICE_ICONS: Record<string, React.ElementType> = {
+  FileSpreadsheet,
+  Users,
+  Users2,
+  Briefcase,
+  ShieldAlert,
+  Building2,
+  TrendingUp,
+  Receipt,
+  CreditCard,
+  PieChart,
+  Calculator,
+  FileText,
+  BookOpen,
+  Layers,
+  Coins,
+  ClipboardCheck,
+  FileCheck,
+  CheckCircle2,
+  Sparkles,
+  UserCheck,
+};
+
+const getServiceIcon = (iconName: string, category: string): React.ElementType => {
+  if (SERVICE_ICONS[iconName]) return SERVICE_ICONS[iconName];
+  if (category === 'cpa') return Layers;
+  if (category === 'business') return Building2;
+  return Users2;
+};
 
 interface AllServicesPageProps {
   onSelectService: (slug: string) => void;
@@ -171,6 +216,11 @@ export function AllServicesPage({
       </div>
       </EditableSectionContainer>
 
+      {/* Reference Interactive Orbital Animation: 7 Unified Services */}
+      <div className="mb-12">
+        <OrbitalServiceWheel />
+      </div>
+
       {/* Filter and Search Bar Controls */}
       <div className="services-catalog-scroll-reveal flex flex-col md:flex-row items-center justify-between gap-4 mb-10 p-4 rounded-3xl bg-white/80 dark:bg-[#071C25]/80 backdrop-blur-md border border-[#DCE5E2] dark:border-[rgba(121,241,232,0.2)] shadow-sm">
         {/* Category Pills */}
@@ -257,62 +307,93 @@ export function AllServicesPage({
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredServices.map((service) => (
-            <div
-              key={service.slug}
-              className="services-catalog-scroll-reveal rounded-3xl p-6 bg-white dark:bg-[#071C25] border border-[#DCE5E2] dark:border-[#102C38] shadow-sm hover:shadow-xl hover:border-[#315F69] dark:hover:border-[#49E3D6]/40 transition-all flex flex-col justify-between group"
-            >
-              <div>
-                {/* Badges */}
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/5 text-[#315F69] dark:text-[#7DF5E8]">
-                    {service.category === 'cpa' ? 'CPA Outsourcing' : service.category}
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-                    <Clock className="w-3 h-3" />
-                    <span>{service.turnaroundTime}</span>
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 
-                  onClick={() => onSelectService(service.slug)}
-                  className="text-lg font-bold text-[#12242B] dark:text-[#F4FBFC] group-hover:text-[#315F69] dark:group-hover:text-[#49E3D6] cursor-pointer transition-colors mb-2"
-                >
-                  {service.name}
-                </h3>
-
-                {/* Description */}
-                <p className="text-xs text-[#476067] dark:text-[#A8C0C6] leading-relaxed mb-4 line-clamp-2">
-                  {service.shortDescription}
-                </p>
-
-                {/* Key Deliverables */}
-                <div className="space-y-1.5 mb-6">
-                  {service.deliverables.slice(0, 3).map((del, dIdx) => (
-                    <div key={dIdx} className="flex items-center gap-2 text-[11px] text-[#12242B] dark:text-[#F4FBFC]">
-                      <CheckCircle2 className="w-3 h-3 text-emerald-500 shrink-0" />
-                      <span className="truncate">{del}</span>
+          {filteredServices.map((service, index) => {
+            const Icon = getServiceIcon(service.iconName, service.category);
+            return (
+              <div
+                key={service.slug}
+                style={{ animationDelay: `${Math.min(index * 40, 360)}ms` }}
+                className="services-catalog-scroll-reveal rounded-3xl p-6 bg-white dark:bg-[#071C25] border border-[#DCE5E2] dark:border-[#102C38] shadow-sm hover:shadow-xl hover:border-[#315F69] dark:hover:border-[#49E3D6]/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  {/* Top Header: Icon + Category + Turnaround */}
+                  <div className="flex items-start justify-between gap-3 mb-4">
+                    <div className="w-11 h-11 rounded-2xl flex items-center justify-center bg-gradient-to-br from-[#17383F]/10 to-[#17383F]/5 dark:from-[#49E3D6]/20 dark:to-[#49E3D6]/5 text-[#17383F] dark:text-[#49E3D6] border border-[#17383F]/10 dark:border-[#49E3D6]/20 group-hover:scale-105 group-hover:border-[#17383F]/30 dark:group-hover:border-[#49E3D6]/50 transition-all duration-300 shadow-xs shrink-0">
+                      <Icon className="w-5 h-5" />
                     </div>
-                  ))}
+                    <div className="flex flex-col items-end gap-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap justify-end">
+                        {service.popular && (
+                          <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:bg-amber-400/15 dark:text-amber-300 border border-amber-500/20">
+                            <Sparkles className="w-2.5 h-2.5" />
+                            Featured
+                          </span>
+                        )}
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-black/5 dark:bg-white/5 text-[#315F69] dark:text-[#7DF5E8]">
+                          {service.category === 'cpa' ? 'CPA Outsourcing' : service.category}
+                        </span>
+                      </div>
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                        <Clock className="w-3 h-3" />
+                        <span>{service.turnaroundTime}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 
+                    onClick={() => onSelectService(service.slug)}
+                    className="text-lg font-bold text-[#12242B] dark:text-[#F4FBFC] group-hover:text-[#315F69] dark:group-hover:text-[#49E3D6] cursor-pointer transition-colors mb-2 leading-snug"
+                  >
+                    {service.name}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-xs text-[#476067] dark:text-[#A8C0C6] leading-relaxed mb-4 line-clamp-2">
+                    {service.shortDescription}
+                  </p>
+
+                  {/* Target Audience / Ideal For */}
+                  {service.idealFor && (
+                    <div className="mb-4 pb-3 border-b border-[#E2EBE8]/60 dark:border-[#102C38]/60 flex items-center gap-1.5 text-[10.5px] font-medium text-[#315F69] dark:text-[#7DF5E8]">
+                      <span className="font-semibold text-[#12242B] dark:text-[#F4FBFC]">Ideal for:</span>
+                      <span className="truncate">{service.idealFor}</span>
+                    </div>
+                  )}
+
+                  {/* Key Deliverables */}
+                  <div className="space-y-1.5 mb-6">
+                    {service.deliverables.slice(0, 3).map((del, dIdx) => (
+                      <div key={dIdx} className="flex items-center gap-2 text-[11px] text-[#12242B] dark:text-[#F4FBFC] group-hover:translate-x-0.5 transition-transform duration-200">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                        <span className="truncate">{del}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Button */}
+                <div className="pt-4 border-t border-[#E2EBE8] dark:border-[#102C38]">
+                  <button
+                    onClick={() => onSelectService(service.slug)}
+                    className="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold text-white bg-[#17383F] hover:bg-[#0F282E] dark:bg-[#49E3D6] dark:hover:bg-[#7DF5E8] dark:text-[#03181E] shadow-sm hover:shadow transition-all group/btn"
+                  >
+                    <span>{gridConfig.exploreButtonText}</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
-
-              {/* Action Button */}
-              <div className="pt-4 border-t border-[#E2EBE8] dark:border-[#102C38]">
-                <button
-                  onClick={() => onSelectService(service.slug)}
-                  className="inline-flex w-full items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-bold text-white bg-[#17383F] hover:bg-[#0F282E] dark:bg-[#49E3D6] dark:hover:bg-[#7DF5E8] dark:text-[#03181E] shadow-sm transition-all"
-                >
-                  <span>{gridConfig.exploreButtonText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
       </EditableSectionContainer>
+
+      {/* Reference Interactive Modules: Forms Explorer & Doubt Solver */}
+      <div className="mt-16 space-y-12">
+        <FormsExplorer />
+        <InteractiveDoubtSolver />
+      </div>
     </div>
   );
 }

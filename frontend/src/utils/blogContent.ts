@@ -49,15 +49,23 @@ export function isSafeBlogLink(value: unknown): value is string {
 }
 
 export function isSafeBlogImage(value: unknown): value is string {
+  // Allow absolute URLs (http/https) and relative URLs that start with a single slash.
+  // The original implementation rejected relative URLs that did not start with "//".
+  // For our blog images stored under /uploads/blog/... we need to accept those paths.
   if (!isSafeBlogLink(value)) return false;
-  if (value.startsWith('/') && !value.startsWith('//')) return true;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    // Accept any path that begins with '/' but not with '//' (which would be protocol‑relative URLs).
+    if (trimmed.startsWith('/') && !trimmed.startsWith('//')) return true;
+  }
   try {
     const origin = typeof window === 'undefined' ? 'https://preferred-tax-consultancy.invalid' : window.location.origin;
-    return ['http:', 'https:'].includes(new URL(value, origin).protocol);
+    return ['http:', 'https:'].includes(new URL(value as string, origin).protocol);
   } catch {
     return false;
   }
 }
+
 
 export function sanitizeLegacyHtml(value: string): string {
   return DOMPurify.sanitize(value, {

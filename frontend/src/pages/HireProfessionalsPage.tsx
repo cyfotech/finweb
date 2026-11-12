@@ -12,6 +12,9 @@ import {
   Cpu,
   ArrowRight,
   Sparkles,
+  Zap,
+  BadgeCheck,
+  CheckCircle2,
 } from 'lucide-react';
 import { getHireRolesWithOverrides } from '../data/hireRoles';
 import { EditableElement } from '../components/EditableElement';
@@ -124,35 +127,151 @@ export function HireProfessionalsPage() {
             </div>
           </div>
 
-          {/* CSS-built 3D accounting illustration; dynamically managed via Tax Intelligence Manager */}
-          <div className="hp-hero-art" aria-hidden="true">
+          {/* Animated 3D Talent Augmentation & Deployment Hub */}
+          <div className="hp-hero-art" aria-label="Interactive talent augmentation terminal">
             <div className="hp-orbit hp-orbit-one" />
             <div className="hp-orbit hp-orbit-two" />
-            <div className="hp-glass-panel hp-panel-back">
-              <div className="hp-panel-topline"><span /><span /><span /></div>
-              <div className="hp-panel-heading"><span className="hp-mini-symbol">{taxConfig.coin.symbol || '$'}</span><span>{taxConfig.title}</span></div>
-              <div className="hp-chart-bars">
-                {taxConfig.chartBars.filter(b => b.enabled).map((b) => (
-                  <i key={b.id} style={{ height: `${b.value}%`, background: b.color }} title={b.label} />
+
+            {/* Main Talent Deployment Terminal */}
+            <div className="hp-talent-terminal">
+              {/* Terminal Topbar */}
+              <div className="hp-term-topbar">
+                <div className="hp-term-brand">
+                  <span className="hp-term-gem" />
+                  <span>Dedicated Talent Pod</span>
+                </div>
+                <div className="hp-term-live-badge">
+                  <span className="hp-term-live-dot" />
+                  <span>Pod Active</span>
+                </div>
+              </div>
+
+              {/* Vetting Pipeline Strip */}
+              <div className="hp-vetting-strip" aria-label="Talent vetting and deployment stages">
+                <div className="hp-vetting-step hp-vetting-step--active">
+                  <span className="hp-vetting-num">01</span>
+                  <span>IRS Vetted</span>
+                </div>
+                <div className="hp-vetting-connector"><span className="hp-vetting-flow" /></div>
+                <div className="hp-vetting-step hp-vetting-step--active">
+                  <span className="hp-vetting-num">02</span>
+                  <span>Skill Tested</span>
+                </div>
+                <div className="hp-vetting-connector"><span className="hp-vetting-flow" /></div>
+                <div className="hp-vetting-step hp-vetting-step--active">
+                  <span className="hp-vetting-num">03</span>
+                  <span>72h Deployed</span>
+                </div>
+              </div>
+
+              {/* Dedicated Talent Cards / Profiles */}
+              <div className="hp-specialist-cards">
+                {/* Specialist 1 */}
+                <div className="hp-spec-card hp-spec-card-1">
+                  <div className="hp-spec-avatar hp-avatar-tax">
+                    <UserCheck size={16} />
+                    <span className="hp-avatar-status" />
+                  </div>
+                  <div className="hp-spec-info">
+                    <div className="hp-spec-header">
+                      <strong>Senior Tax Preparer (EA)</strong>
+                      <span className="hp-spec-tag">1040 / 1120-S</span>
+                    </div>
+                    <div className="hp-spec-meta">
+                      <span>Drake · ProConnect</span>
+                      <em className="hp-spec-state hp-state-deployed">Active in Pod</em>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Specialist 2 */}
+                <div className="hp-spec-card hp-spec-card-2">
+                  <div className="hp-spec-avatar hp-avatar-acct">
+                    <Briefcase size={16} />
+                    <span className="hp-avatar-status" />
+                  </div>
+                  <div className="hp-spec-info">
+                    <div className="hp-spec-header">
+                      <strong>CAS Controller / Lead</strong>
+                      <span className="hp-spec-tag">US GAAP</span>
+                    </div>
+                    <div className="hp-spec-meta">
+                      <span>QuickBooks · Xero</span>
+                      <em className="hp-spec-state hp-state-active">Reconciliation</em>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Specialist 3 */}
+                <div className="hp-spec-card hp-spec-card-3">
+                  <div className="hp-spec-avatar hp-avatar-qa">
+                    <ShieldCheck size={16} />
+                    <span className="hp-avatar-status" />
+                  </div>
+                  <div className="hp-spec-info">
+                    <div className="hp-spec-header">
+                      <strong>Senior Tax Reviewer (CPA)</strong>
+                      <span className="hp-spec-tag">Multi-State</span>
+                    </div>
+                    <div className="hp-spec-meta">
+                      <span>Workpaper QA</span>
+                      <em className="hp-spec-state hp-state-ready">Ready to Match</em>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Software Integration Pills */}
+              <div className="hp-tool-pills" aria-label="Proficient software stack">
+                {['Drake', 'UltraTax', 'ProConnect', 'QuickBooks', 'Xero', 'Teams/Slack'].map((tool) => (
+                  <span key={tool} className="hp-tool-pill">{tool}</span>
                 ))}
               </div>
-              <div className="hp-chart-line"><span /><span /><span /><span /><span /></div>
-              <div className="hp-panel-footer"><span>{taxConfig.annualReviewLabel}</span><b>{taxConfig.annualReviewMetric}</b></div>
+
+              {/* Terminal Footer */}
+              <div className="hp-term-footer">
+                <div className="hp-term-stat">
+                  <strong>US EST / CST</strong>
+                  <small>Time Zone Overlap</small>
+                </div>
+                <div className="hp-term-divider" />
+                <div className="hp-term-stat">
+                  <strong className="hp-term-teal">Zero Overhead</strong>
+                  <small>No Recruitment Friction</small>
+                </div>
+              </div>
             </div>
-            <div className="hp-floating-document hp-document-one">
-              <div className="hp-doc-seal"><ShieldCheck size={20} /></div>
-              <strong>{taxConfig.complianceCard.title}</strong><span /><span /><span className="hp-doc-short" />
-              <small>{taxConfig.complianceCard.subtitle}</small>
+
+            {/* Floating Card 1: Pre-Vetted Verification */}
+            <div className="hp-floating-badge hp-float-card-top">
+              <div className="hp-float-icon hp-float-icon-teal">
+                <ShieldCheck size={18} />
+              </div>
+              <div className="hp-float-text">
+                <strong>Pre-Vetted US Talent</strong>
+                <small>Top 3% Assessment Passed</small>
+              </div>
+              <span className="hp-float-check"><BadgeCheck size={16} /></span>
             </div>
-            <div className="hp-floating-document hp-document-two">
-              <div className="hp-doc-spark"><Star size={15} /></div>
-              <strong>{taxConfig.talentCard.title}</strong><span /><span /><span className="hp-doc-short" />
-              <small>{taxConfig.talentCard.subtitle}</small>
+
+            {/* Floating Card 2: 72h Ramp-Up */}
+            <div className="hp-floating-badge hp-float-card-bottom">
+              <div className="hp-float-icon hp-float-icon-gold">
+                <Zap size={18} />
+              </div>
+              <div className="hp-float-text">
+                <strong>72-Hour Deployment</strong>
+                <small>Direct Workflow Integration</small>
+              </div>
+              <span className="hp-float-pulse-dot" />
             </div>
-            {taxConfig.coin.enabled && (
-              <div className="hp-floating-coin"><span>{taxConfig.coin.symbol}</span></div>
-            )}
-            <div className="hp-art-caption"><span className="hp-caption-dot" /> {taxConfig.caption} <ArrowUpRight size={14} /></div>
+
+            {/* Caption */}
+            <div className="hp-art-caption">
+              <span className="hp-caption-dot" />
+              <span>Dedicated Staff Augmentation</span>
+              <ArrowUpRight size={14} />
+            </div>
           </div>
 
           <div className="hp-hero-metrics">

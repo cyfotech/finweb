@@ -24,6 +24,7 @@ import { EditableSectionContainer } from '../components/EditableSectionContainer
 import { EditableElement } from '../components/EditableElement';
 import { settingsApi } from '../api/settings';
 import { defaultProductionDashboardConfig, ProductionDashboardConfig } from '../admin/pages/ProductionDashboardManager';
+import { CpaPeakCapacityCalculator, LlcTaxClassifier, InteractiveDoubtSolver } from '../components/referenceAnimations';
 import './CpaOutsourcingPage.css';
 
 const SOFTWARE_STACK = [
@@ -199,43 +200,116 @@ export function CpaOutsourcingPage() {
             </div>
           </div>
 
-          {/* CSS-only financial operations illustration */}
-          <div className="cpa-hero-visual" aria-label="Illustration of a tax workflow dashboard">
+          {/* CSS-only CPA workflow pipeline illustration */}
+          <div className="cpa-hero-visual" aria-label="Animated CPA outsourcing workflow pipeline">
             <div className="cpa-visual-halo cpa-visual-halo-a" />
             <div className="cpa-visual-halo cpa-visual-halo-b" />
-            <div className="cpa-visual-orbit cpa-visual-orbit-a" />
-            <div className="cpa-visual-orbit cpa-visual-orbit-b" />
 
-            <div className="cpa-dashboard-card">
-              <div className="cpa-dashboard-topbar">
-                <div className="cpa-dashboard-brand"><span /> {prodConfig.brandTag}</div>
-                <div className="cpa-window-dots"><i /><i /><i /></div>
-              </div>
-              <div className="cpa-dashboard-title-row">
-                <div><small>{prodConfig.kicker}</small><strong>{prodConfig.title}</strong></div>
-                <span className="cpa-dashboard-status"><i /> {prodConfig.statusText}</span>
-              </div>
-              <div className="cpa-dashboard-metrics">
-                <div><small>{prodConfig.stat1Title}</small><strong>{prodConfig.stat1Value}</strong><em>{prodConfig.stat1Change}</em></div>
-                <div><small>{prodConfig.stat2Title}</small><strong>{prodConfig.stat2Value}</strong><em>{prodConfig.stat2Change}</em></div>
-              </div>
-              <div className="cpa-chart-heading"><span>{prodConfig.chartTitle}</span><small>{prodConfig.chartSubtitle}</small></div>
-              <div className="cpa-dashboard-chart">
-                <div className="cpa-chart-grid"><i /><i /><i /><i /></div>
-                <div className="cpa-chart-bars">
-                  {prodConfig.chartData.map((pt, i) => (
-                    <i key={i} style={{ height: `${pt.value}%` }} title={`${pt.day}: ${pt.value}%`} />
-                  ))}
+            {/* ── Main workflow card ── */}
+            <div className="cpa-workflow-card">
+
+              {/* Top bar */}
+              <div className="cpa-wf-topbar">
+                <div className="cpa-wf-brand">
+                  <span className="cpa-wf-brand-gem" />
+                  CPA Workflow
                 </div>
-                <svg className="cpa-chart-trace" viewBox="0 0 280 90" preserveAspectRatio="none" aria-hidden="true">
-                  <defs><linearGradient id="cpaChartGradient" x1="0" x2="1"><stop offset="0%" stopColor="#24b8b0" /><stop offset="55%" stopColor="#6c91ee" /><stop offset="100%" stopColor="#e4b65c" /></linearGradient></defs>
-                  <path d="M5 72 C32 64, 36 53, 60 58 S90 36, 116 46 S149 54, 170 31 S211 44, 231 21 S258 25, 275 8" fill="none" stroke="url(#cpaChartGradient)" strokeWidth="3" strokeLinecap="round" />
-                  <path d="M5 72 C32 64, 36 53, 60 58 S90 36, 116 46 S149 54, 170 31 S211 44, 231 21 S258 25, 275 8 L275 90 L5 90Z" fill="url(#cpaChartGradient)" opacity=".12" />
-                </svg>
+                <div className="cpa-wf-live-pill">
+                  <span className="cpa-wf-live-dot" />
+                  Live
+                </div>
               </div>
-              <div className="cpa-dashboard-footer"><span><i /> {prodConfig.footerNote}</span><span>{prodConfig.footerTimestamp}</span></div>
+
+              {/* Pipeline stages */}
+              <div className="cpa-pipeline" aria-label="Workflow pipeline">
+                {[
+                  { label: 'Client Upload',  abbr: '01', delay: '0s'   },
+                  { label: 'Processing',     abbr: '02', delay: '1.1s' },
+                  { label: 'Tax Prep',       abbr: '03', delay: '2.2s' },
+                  { label: 'QA Review',      abbr: '04', delay: '3.3s' },
+                  { label: 'Delivered',      abbr: '05', delay: '4.4s' },
+                ].map((stage, idx) => (
+                  <React.Fragment key={stage.abbr}>
+                    <div className="cpa-pipeline-stage" style={{ '--cpa-stage-delay': stage.delay } as React.CSSProperties}>
+                      <div className="cpa-pipeline-node">
+                        <svg className="cpa-node-ring" viewBox="0 0 36 36" aria-hidden="true">
+                          <circle cx="18" cy="18" r="15" fill="none" stroke="currentColor" strokeOpacity=".18" strokeWidth="2.5" />
+                          <circle
+                            className="cpa-node-progress"
+                            cx="18" cy="18" r="15"
+                            fill="none" stroke="url(#cpaPipeGrad)" strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeDasharray="94.25"
+                            strokeDashoffset="94.25"
+                          />
+                        </svg>
+                        <span className="cpa-node-abbr">{stage.abbr}</span>
+                      </div>
+                      <span className="cpa-pipeline-label">{stage.label}</span>
+                    </div>
+                    {idx < 4 && <div className="cpa-pipeline-connector"><span className="cpa-connector-flow" /></div>}
+                  </React.Fragment>
+                ))}
+              </div>
+
+              {/* SVG gradient defs (reused by pipeline nodes) */}
+              <svg width="0" height="0" aria-hidden="true" style={{ position: 'absolute' }}>
+                <defs>
+                  <linearGradient id="cpaPipeGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%"   stopColor="#49e3d6" />
+                    <stop offset="60%"  stopColor="#6c91ee" />
+                    <stop offset="100%" stopColor="#e4b65c" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              {/* Document queue */}
+              <div className="cpa-doc-queue" aria-label="Document queue">
+                <div className="cpa-doc-queue-header">
+                  <span>Return Queue</span>
+                  <span className="cpa-queue-count">3 active</span>
+                </div>
+                <ul className="cpa-doc-list">
+                  <li className="cpa-doc-item cpa-doc-item-1">
+                    <span className="cpa-doc-type">1040</span>
+                    <span className="cpa-doc-name">M. Reynolds</span>
+                    <span className="cpa-doc-status cpa-doc-status--review">In Review</span>
+                  </li>
+                  <li className="cpa-doc-item cpa-doc-item-2">
+                    <span className="cpa-doc-type">1120-S</span>
+                    <span className="cpa-doc-name">Apex LLC</span>
+                    <span className="cpa-doc-status cpa-doc-status--prep">Preparing</span>
+                  </li>
+                  <li className="cpa-doc-item cpa-doc-item-3">
+                    <span className="cpa-doc-type">1065</span>
+                    <span className="cpa-doc-name">Harbor Partners</span>
+                    <span className="cpa-doc-status cpa-doc-status--queued">Queued</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Software badges */}
+              <div className="cpa-sw-row" aria-label="Supported software">
+                {['Drake', 'ProConnect', 'QuickBooks', 'Xero'].map((sw) => (
+                  <span key={sw} className="cpa-sw-badge">{sw}</span>
+                ))}
+              </div>
+
+              {/* Bottom workflow info */}
+              <div className="cpa-wf-stats">
+                <div className="cpa-wf-stat">
+                  <strong>Multi-Tier</strong>
+                  <small>Review Process</small>
+                </div>
+                <div className="cpa-wf-stat-divider" />
+                <div className="cpa-wf-stat">
+                  <strong className="cpa-wf-stat-teal">Standardized</strong>
+                  <small>Workpapers & QA</small>
+                </div>
+              </div>
             </div>
 
+            {/* Existing floating badges — unchanged */}
             <div className="cpa-floating-badge cpa-floating-badge-top">
               <span className="cpa-floating-icon"><FileCheck2 size={19} /></span>
               <span><strong>{prodConfig.cardTopTitle}</strong><small>{prodConfig.cardTopSubtitle}</small></span>
@@ -341,6 +415,13 @@ export function CpaOutsourcingPage() {
 
         {/* Existing interactive diagrams */}
         </EditableSectionContainer>
+
+        {/* Reference Interactive Simulators: Peak Capacity & LLC Classifier */}
+        <section className="cpa-reference-simulators my-12 space-y-10">
+          <CpaPeakCapacityCalculator />
+          <LlcTaxClassifier />
+          <InteractiveDoubtSolver />
+        </section>
 
         <EditableSectionContainer sectionKey="timeline" sectionTitle="Delivery Timeline" isEnabled={isSectionEnabled('timeline')} sectionData={timelineSection}>
         <section className="cpa-diagram-section" aria-label={timelineSection?.title || 'Annual sprint timeline'}>

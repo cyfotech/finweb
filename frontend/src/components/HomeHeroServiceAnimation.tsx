@@ -1,5 +1,8 @@
+import React, { useState } from 'react';
 import { FinancialDonutChart } from './FinancialDonutChart';
 import { useAnimationSettings } from '../context/AnimationSettingsContext';
+import { OrbitalServiceWheel } from './referenceAnimations/OrbitalServiceWheel';
+import { Compass, PieChart } from 'lucide-react';
 
 const defaultHomeFinancialMix = [
   {
@@ -38,6 +41,7 @@ const defaultHomeFinancialMix = [
 
 export function HomeHeroServiceAnimation() {
   const { settings } = useAnimationSettings();
+  const [activeView, setActiveView] = useState<'orbital' | 'portfolio'>('orbital');
   const chartConfig = settings?.homeDonutChart;
 
   if (chartConfig && chartConfig.enabled === false) {
@@ -50,14 +54,55 @@ export function HomeHeroServiceAnimation() {
   const centerLabel = chartConfig?.centerLabel || 'PORTFOLIO MIX';
 
   return (
-    <FinancialDonutChart
-      data={data}
-      title={title}
-      subtitle={subtitle}
-      centerLabel={centerLabel}
-      valueFormatter={value => `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(value)}`}
-      totalFormatter={value => `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(value)}`}
-      tone="home"
-    />
+    <div className="relative w-full space-y-3">
+      {/* View Switcher Pill */}
+      <div className="flex justify-end">
+        <div className="inline-flex rounded-full bg-black/5 dark:bg-white/5 p-1 border border-[#DCE5E2] dark:border-[rgba(121,241,232,0.2)] text-[10px] font-bold">
+          <button
+            onClick={() => setActiveView('orbital')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
+              activeView === 'orbital'
+                ? 'bg-[#12242B] dark:bg-[#49E3D6] text-white dark:text-[#03141A] shadow-sm'
+                : 'text-[#476067] dark:text-[#A8C0C6]'
+            }`}
+            type="button"
+          >
+            <Compass className="w-3 h-3" />
+            <span>7-Service Orbital</span>
+          </button>
+          <button
+            onClick={() => setActiveView('portfolio')}
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-full transition-all ${
+              activeView === 'portfolio'
+                ? 'bg-[#12242B] dark:bg-[#49E3D6] text-white dark:text-[#03141A] shadow-sm'
+                : 'text-[#476067] dark:text-[#A8C0C6]'
+            }`}
+            type="button"
+          >
+            <PieChart className="w-3 h-3" />
+            <span>Portfolio Mix</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Render Active View */}
+      {activeView === 'orbital' ? (
+        <div className="transition-all duration-300">
+          <OrbitalServiceWheel />
+        </div>
+      ) : (
+        <div className="transition-all duration-300">
+          <FinancialDonutChart
+            data={data}
+            title={title}
+            subtitle={subtitle}
+            centerLabel={centerLabel}
+            valueFormatter={value => `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(value)}`}
+            totalFormatter={value => `$${new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(value)}`}
+            tone="home"
+          />
+        </div>
+      )}
+    </div>
   );
 }
