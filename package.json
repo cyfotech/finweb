@@ -5,9 +5,9 @@
   "version": "1.0.0",
   
   "scripts": {
-    "dev": "npm --prefix frontend run dev",
-    "build": "npm --prefix frontend run build",
-    "preview": "npm --prefix frontend run preview",
-    "lint": "npm --prefix frontend run lint"
+    "dev": "cd frontend && bun install && bun run dev",
+    "build": "cd frontend && bun install && bun run build",
+    "preview": "cd frontend && bun install && bun run preview",
+    "lint": "cd frontend && bun install && bun run lint"
   }
 }
