@@ -24,6 +24,14 @@ import { BookConsultationPage } from './pages/BookConsultationPage';
 import { TaxCalculatorPage } from './pages/TaxCalculatorPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
+// Imported Reference Pages
+import MainServicesPage from './pages/MainServicesPage.jsx';
+import TaxPlanningPage from './pages/TaxPlanningPage.jsx';
+import TaxPreparationPage from './pages/TaxPreparationPage.jsx';
+import BookkeepingPage from './pages/BookkeepingPage.jsx';
+import ContactPage from './pages/ContactPage.jsx';
+import './pages/ImportedPages.css';
+
 // Admin Pages
 import { AdminAuthProvider } from './admin/components/AdminAuthContext';
 import { AdminErrorBoundary } from './admin/components/AdminErrorBoundary';
@@ -201,7 +209,20 @@ export default function App() {
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<AboutUs />} />
-                    <Route path="/services" element={<ServicesPage />} />
+                    <Route path="/services" element={<MainServicesPage />} />
+                    <Route path="/main-services" element={<MainServicesPage />} />
+                    <Route path="/tax-planning" element={<TaxPlanningPage />} />
+                    <Route path="/us-tax-planning-services" element={<TaxPlanningPage />} />
+                    <Route path="/us-tax-planning-services/*" element={<TaxPlanningPage />} />
+                    <Route path="/tax-preparation" element={<TaxPreparationPage />} />
+                    <Route path="/usa-tax-preparation-services" element={<TaxPreparationPage />} />
+                    <Route path="/usa-tax-preparation-services/*" element={<TaxPreparationPage />} />
+                    <Route path="/bookkeeping" element={<BookkeepingPage />} />
+                    <Route path="/bookkeeping-services-usa" element={<BookkeepingPage />} />
+                    <Route path="/bookkeeping-services-usa/*" element={<BookkeepingPage />} />
+                    <Route path="/services/tax-planning" element={<TaxPlanningPage />} />
+                    <Route path="/services/tax-preparation" element={<TaxPreparationPage />} />
+                    <Route path="/services/bookkeeping" element={<BookkeepingPage />} />
                     <Route path="/services/:slug" element={<ServiceDetailRoute />} />
                     <Route path="/cpa-outsourcing" element={<CpaOutsourcingPage />} />
                     <Route path="/hire-professionals" element={<HireProfessionalsPage />} />
@@ -209,7 +230,8 @@ export default function App() {
                     <Route path="/tax-resources" element={<TaxResourcesPage />} />
                     <Route path="/blog" element={<BlogPage />} />
                     <Route path="/blog/:slug" element={<BlogArticlePage />} />
-                    <Route path="/contact" element={<ContactUs />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/contact-us" element={<ContactPage />} />
                     <Route path="/book-consultation" element={<BookConsultationPage />} />
                     <Route path="/tax-calculator" element={<TaxCalculatorPage />} />
                     <Route path="*" element={<NotFoundPage />} />

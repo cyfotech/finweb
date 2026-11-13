@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calculator } from 'lucide-react';
 import type { ClientCategory } from '../data/services';
@@ -516,8 +516,8 @@ export function CinematicHeroChapter({
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-    event.currentTarget.style.setProperty('--pointer-rotate-y', `${(x * 3).toFixed(2)}deg`);
-    event.currentTarget.style.setProperty('--pointer-rotate-x', `${(-y * 2.5).toFixed(2)}deg`);
+    // tilt removed to keep stable on mouse move
+    // tilt removed to keep stable on mouse move
   };
 
   const handlePointerLeave = (event: React.PointerEvent<HTMLDivElement>) => {

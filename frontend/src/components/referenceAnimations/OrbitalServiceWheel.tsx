@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import {
   FileSpreadsheet,
   BookOpen,
@@ -127,14 +127,14 @@ export function OrbitalServiceWheel({ onSelectService, className = '' }: Orbital
   return (
     <div 
       className={`ref-anim-card ${className}`}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      
+      
       aria-label="Interactive 7-Service Accounting & Tax Orbital Wheel"
     >
       <div className="ref-anim-header">
         <div className="flex items-center gap-2">
           <span className="ref-anim-dot" />
-          <span className="text-xs font-bold text-[#12242B] dark:text-[#F4FBFC] uppercase tracking-wider font-mono">
+          <span className="text-xs font-bold text-[#12242B] dark:text-[#F4FBFC] uppercase tracking-wider font-sans">
             Transaction Journey · 7 Interconnected Practices
           </span>
         </div>
@@ -152,8 +152,8 @@ export function OrbitalServiceWheel({ onSelectService, className = '' }: Orbital
             {/* Center Core */}
             <div className="ref-orbit-center">
               <span className="text-[10px] uppercase font-bold tracking-widest text-[#49E3D6]">One Hub</span>
-              <span className="text-xs font-bold font-serif-editorial leading-tight mt-0.5">7 Unified Services</span>
-              <span className="text-[8.5px] text-gray-300 font-mono mt-1">SOC-2 &bull; Circular 230</span>
+              <span className="text-xs font-bold font-sans tracking-tight leading-tight mt-0.5">7 Unified Services</span>
+              <span className="text-[8.5px] text-gray-300 font-sans mt-1">SOC-2 &bull; Circular 230</span>
             </div>
 
             {/* 7 Orbiting Nodes */}
@@ -187,10 +187,10 @@ export function OrbitalServiceWheel({ onSelectService, className = '' }: Orbital
                 <ActiveIcon className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-[10px] font-bold font-mono uppercase text-emerald-600 dark:text-[#49E3D6] tracking-wider">
+                <span className="text-[10px] font-bold font-sans uppercase text-emerald-600 dark:text-[#49E3D6] tracking-wider">
                   {active.tag}
                 </span>
-                <h4 className="text-lg font-bold text-[#12242B] dark:text-[#F4FBFC] font-serif-editorial">
+                <h4 className="text-lg font-bold text-[#12242B] dark:text-[#F4FBFC] font-sans tracking-tight">
                   {active.name}
                 </h4>
               </div>
@@ -214,12 +214,12 @@ export function OrbitalServiceWheel({ onSelectService, className = '' }: Orbital
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="text-[10px] font-bold uppercase text-gray-400">Key Tags:</span>
               {active.chips.map((c) => (
-                <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/5 font-mono text-[#315F69] dark:text-[#7DF5E8] font-bold">
+                <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-black/5 dark:bg-white/5 font-sans text-[#315F69] dark:text-[#7DF5E8] font-bold">
                   {c}
                 </span>
               ))}
             </div>
-            <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-[#49E3D6] font-mono">
+            <div className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 dark:text-[#49E3D6] font-sans">
               <span>Step 0{activeIdx + 1} of 07</span>
             </div>
           </div>
@@ -228,3 +228,4 @@ export function OrbitalServiceWheel({ onSelectService, className = '' }: Orbital
     </div>
   );
 }
+

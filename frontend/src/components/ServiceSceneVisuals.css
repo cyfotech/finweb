@@ -2,6 +2,7 @@
   --scene-ink: #17383f;
   --scene-muted: #526a70;
   --scene-accent: #1b9b77;
+  --scene-chart-secondary: #93aab6;
   --scene-border: rgba(23, 56, 63, 0.14);
   --scene-surface: rgba(255, 255, 255, 0.82);
 }
@@ -10,6 +11,7 @@
   --scene-ink: #e8f7f5;
   --scene-muted: #a8c0c6;
   --scene-accent: #49e3d6;
+  --scene-chart-secondary: #82aebb;
   --scene-border: rgba(121, 241, 232, 0.2);
   --scene-surface: rgba(7, 28, 37, 0.84);
 }
@@ -736,7 +738,7 @@
 }
 
 .service-scene__chart-legend i:last-of-type {
-  background: #7790a4;
+  background: var(--scene-chart-secondary);
 }
 
 .service-scene__chart-bars {
@@ -772,7 +774,7 @@
 }
 
 .service-scene__chart-bars > span > b {
-  background: #7790a4;
+  background: var(--scene-chart-secondary);
 }
 
 .service-scene__report-chart > small {
