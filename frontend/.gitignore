@@ -1,39 +1,9 @@
-@'
-# Dependencies
 node_modules/
-**/node_modules/
-
-# Build files
 dist/
 build/
-**/dist/
-**/build/
-
-# Environment variables
 .env
 .env.*
 !.env.example
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-
-# Cache
-.cache/
-.vite/
 coverage/
-
-# IDE
-.vscode/
-.idea/
-
-# Operating system
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Temporary files
-*.tmp
-*.bak
-'@ | Set-Content .gitignore
+.vite/
+*.log
